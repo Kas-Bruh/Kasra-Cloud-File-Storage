@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasra Cloud</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #loginButton {
+            margin-top: 0px;
+            height: 40px;
+            background-color: rgb(0, 0, 0);
+            border: none;
+            color: white;
+            margin-left: auto;
+            font-size: 16px;
+            font-weight: 550;
+        }
+        
+        #loginButton:hover {
+            border-bottom: 1.5px solid rgb(43, 139, 248);
+            border-top: 1px solid rgb(0, 0, 0);
+            color: rgb(43, 139, 248);
+            font-weight: bold;
+        }
+
+        header {
+            background-color: rgb(0, 0, 0);
+            margin: 0px;
+            padding: 10px;
+            width: 100%;
+            box-shadow: 0 6px 7.5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+        }
+
+        #startLink {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: 40px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding-bottom: 5px;
+        }
+        
+        body {
+            margin: 0px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        main {
+            margin: 10px;
+            color: rgb(0, 0, 0);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+
+
+        #resetButton {
+            height: 30px;
+            border-radius: 5px;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            background-color: rgb(0, 119, 255);
+            border-width: 1px;
+            border-color: rgb(0, 119, 255);
+            border-style: solid;
+            line-height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+
+
+        h1 {
+            margin-left: 10px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            Font-weight: light;
+            font-size: 800;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+
+        #loginButtonForm {
+            margin-left:auto;
+        }
+
+        .yesButton {
+            border-radius: 10px;
+            border: 1px solid rgb(0, 119, 255);
+            background-color: rgb(0, 119, 255);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            height: 50px;
+            font-size: 18px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #mainScreenDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input {
+            width: 400px;
+            height: 50px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .messagePopup {
+            display: none; /* Initially hide the div */
+            background-color: rgb(255, 76, 76); /* Red background */
+            color: rgb(255, 255, 255); /* White text */
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .messagePopup ul {
+            list-style-type: none; /* Set bullet style for main list */
+            padding-left: 0;
+        }
+
+        .messagePopup ul ul {
+            list-style-type: circle; /* Set bullet style for nested list */
+            margin-left: 20px;
+        }
+
+        .messagePopup ul ul ul {
+            list-style-type: square; /* Set bullet style for further nested list */
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'start' %}" id="startLink">Kasra Cloud</a>
+        <form id="loginButtonForm" method="get" action='{% url "start" %}'>
+            <button id="loginButton" type="submit">Login Here</button>
+        </form>
+    </header>
+    <main>
+        <div id="mainScreenDiv">
+            <h1 id="pageTitle">Sign Up Now</h1>
+            <form method="POST" action="{% url 'signup' %}" >
+                {% csrf_token %}
+                <div class="inputsDiv">
+                    {% for field in form %}
+                        <div>
+                        {{field}}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <button type="submit" class="yesButton">create account</button>
+                </div>
+            </form>
+            <div class="messagePopup">
+                {{form.errors}}
+            </div>
+            <a href="{% url 'start' %}">already have an account?</a>
+        </div>
+    </main>
+</body>
+</html>
+<script>
+    var formFields = document.getElementsByTagName("input");
+    var messagePopup = document.querySelector(".messagePopup");
+    formFields[1].placeholder = "Username";
+    formFields[2].placeholder = "Email";
+    formFields[3].placeholder = "Password";
+    formFields[4].placeholder = "Re-enter Password";
+
+    if(messagePopup.innerHTML.trim() !== "") {
+        messagePopup.style.display = "block";
+    }
+    
+</script>
