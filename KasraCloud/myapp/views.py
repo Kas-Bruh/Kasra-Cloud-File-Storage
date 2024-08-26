@@ -1,4 +1,4 @@
-# This Code is how my frontend connects to the backend
+# This Code is how the frontend connects to the backend
 # Whenever the fetch command is called in the HTML templates, Django uses urls.py to connect to this file
 
 
