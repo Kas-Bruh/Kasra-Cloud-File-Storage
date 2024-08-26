@@ -1,3 +1,7 @@
+# This Code is how my frontend connects to the backend
+# Whenever the fetch command is called in the HTML templates, Django uses urls.py to connect to this file
+
+
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponseNotFound
 from .navigator import Navigator, File, Folder
@@ -14,6 +18,9 @@ from django.conf import settings
 import mimetypes
 from wsgiref.util import FileWrapper
 
+
+
+# Signup sends a request to the User model form in forms.py
 
 def signup(request):
     form = CreateUserForm()
