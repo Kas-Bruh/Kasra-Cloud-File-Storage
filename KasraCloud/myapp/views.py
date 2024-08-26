@@ -21,6 +21,7 @@ from wsgiref.util import FileWrapper
 
 
 # Signup sends a request to the User model form in forms.py
+# The form connects to the User model that Django offers, allowing for user authentication
 
 def signup(request):
     form = CreateUserForm()
@@ -35,6 +36,8 @@ def signup(request):
     context = {"form": form}
     return render(request, 'myapp/signUpScreen.html', context)
 
+# This function collects the username and password of a user to then decide to send them to the home screen (where the app is) or to show error messages.
+
 def start(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -47,6 +50,8 @@ def start(request):
             messages.info(request, "Username OR Password is incorrect")
     return render(request, 'myapp/startScreen.html')
 
+# this function simply logs out the user
+
 def logoutUser(request):
     navigator = loadNavigator(request)
     navigator.resetScreen()
@@ -55,10 +60,15 @@ def logoutUser(request):
     messages.info(request, "Logged Out ")
     return redirect("start")
 
+# loads a navigator model created in models.py by using functions within the model
+# These functions start a navigator object from navigator.py which has the main functionality of the project
+
 def loadNavigator(request):
     if request.user.is_authenticated:
         navigatorModel = NavigatorModel.objects.get(user=request.user)
         return navigatorModel.loadNavigatorHelper()
+
+
 
 def saveNavigator(request, navigator):
     navigatorModel = NavigatorModel.objects.get(user=request.user)
