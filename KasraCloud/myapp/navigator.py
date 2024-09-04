@@ -114,12 +114,6 @@ class Navigator:
         self.updateDisplay()
         return "Screen reset"
 
-    def openItem(self, name):
-        if type(self.current[name]) == Folder:
-            self.enterFolder(name)
-            return "Item opened"
-        return "Not a folder"
-
     def rename(self, name, newName):
         if newName not in self.everything:
             if self.searched != False:
